@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+    #data { color: #5b80b2}
+</style>
+</head>
+
+{% extends 'monthlyat.html' %}
+<body bgcolor="#191970">
+{% block 'attendence' %}
+    <br><br>
+    <center>
+    <div>
+<table width="50%" style="color:tomato">
+ <tr>
+    <th>date</th>
+    <th>login</th>
+    <th>logout</th>
+     <th>status</th>
+ </tr>
+    {% for at in attendance %}
+    <tr id="data">
+            <td>{{ at.login_date }}</td>
+            <td>{{ at.login_time }}</td>
+            <td>{{ at.logout_time }}</td>
+            <td>{{ at.status }}</td>
+
+    </tr>
+{% endfor %}
+
+</table>
+    </div>
+    </center>
+{% endblock %}
+
+
+</body>
+</html>

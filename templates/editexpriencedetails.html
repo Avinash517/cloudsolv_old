@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <style>
+        body {
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace, sans-serif; }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body text="white"  >
+<form method="post" action="/updateexperience/"  enctype="multipart/form-data"  >
+    {% csrf_token %}
+    <fieldset style="color: darkblue;">
+        <legend style="padding: 20px;font-size: 30px;color: black" >Experience Information</legend>
+        <pre><fieldset>
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Name of the Organisation<span style="color: red">*</span>:</span>   <input type="text" name="orgo" placeholder="Please Enter The Organisation Name" value="{{ qs.name_of_organisation }}" required pattern="[a-zA-Z\s.]+" title="Please Enter only Characters" >   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Position Held<span style="color: red">*</span>:</span>   <input type="text" name="p_osition" placeholder="Position" value="{{ qs.job_role  }}" required pattern="[A-Za-z,\s]+" title="Enter Proper Name">   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Relative Experience<span style="color: red">*</span>:</span>   <input type="text" name="p_work" placeholder="Period of Work"  value="{{ qs.period_of_work }}"   required pattern="[0-9.\s]+[A-Za-z]+" title="Please Enter only Number ">   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Annual Package<span style="color: red">*</span>:</span>   <input type="text" name="salary1" placeholder="Salary Package" value="{{ qs.package }}"  required pattern="[0-9]{1,11}" title="Please Enter only Number ">
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Total Experience<span style="color: red">*</span>:</span>   <input type="text" name="Total" placeholder="Total Experience" value="{{qs.total_experience }}"  pattern="[0-9,.\s]+[A-Za-z]+" title="Please Enter only Number ">  <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Relieving Letter<span style="color: red">*</span>:</span> <a href="http://127.0.0.1:8000{{ qs.relieving_letter.url }}"> <img src="{{ qs.relieving_letter.url}}" width="100px"> </a> <input type="file" name="Reliving2"   value="{{ qs.relieving_letter.url }}" placeholder="Upload Relieving Letter">
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Pay Slip<span style="color: red">*</span>:</span> </label><a href="http://127.0.0.1:8000{{ qs.pay_slip.url }}"> <img src="{{ qs.pay_slip.url}}" width="100px">  </a><input type="file"   name="P"  placeholder="Upload Pay Slip">  <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Form if any: {% if qs.is_form_any_uploaded %}<a href="http://127.0.0.1:8000{{ qs.forms_any.url }}"><img src="{{ qs.forms_any.url}}" width="100px"> </a>{% endif %}<input  type="file" name="qs6"  placeholder="Upload Form">
+
+
+
+            <fieldset>
+                <pre>
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Name of the Organisation:</span>   <input type="text" name="orgo1" placeholder="Please Enter The Organisation Name" value="{{ qs.name_of_organisation1 }}"  pattern="[a-zA-Z]+[ ][a-zA-Z]+{1,7}" title="Please Enter only Characters" >   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Position Held:</span>   <input type="text" name="p_osition1" placeholder="Position" value="{{ qs.job_role1  }}"  pattern="[A-Za-z]+[][A-Za-z]+{1,7}" title="Enter Proper Name">   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Period of Work:</span>   <input type="text" name="p_work1" placeholder="Period of Work"  value="{{ qs.period_of_work1 }}"    pattern="[0-9.\s]+[A-Za-z]+" title="Please Enter only Number ">   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Annual Package:</span> {% if qs.package1 is not None %}  <input type="text" name="salary11" placeholder="Salary Package" value="{{ qs.package1 }}"   pattern="[0-9]{1,11}" title="Please Enter only Number ">{% else %} <input type="text" name="salary11" placeholder="Salary Package"  pattern="[0-9]{1,11}" title="Please Enter only Number ">{% endif %}
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Total Experience:</span> {% if qs.total_experience1 is not  None %}  <input type="text" name="Total1" placeholder="Total Experience" value="{{qs.total_experience1 }}"  pattern="[0-9.\s]+[A-Za-z]+" title="Please Enter only Number ">{% else %} <input type="text" name="Total1" placeholder="Total Experience"  pattern="[0-9\.]{1,3}" title="Please Enter only Number ">{% endif %}<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Relieving Letter:</span>{% if qs.relieving_letter1 %} <a href="http://127.0.0.1:8000{{ qs.relieving_letter1.url }}"> <img src="{{ qs.relieving_letter1.url}}" width="100px"></a> {% endif %} <input type="file" name="R1"   placeholder="Upload Relieving Letter">
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Pay Slip:</span> </label>{% if qs.is_pay_slip1%}<a href="http://127.0.0.1:8000{{ qs.pay_slip1.url }}"> <img src="{{ qs.pay_slip1.url}}" width="100px"> </a>{% endif %} <input type="file"   name="P1" placeholder="Upload Pay Slip">  <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Form if any</span>:{% if qs.is_form_any_uploaded1%}  <a href="http://127.0.0.1:8000{{ qs.forms_any1.url }}"><img src="{{ qs.forms_any1.url}}" width="100px"></a>{% endif %} <input  type="file" name="qss"  placeholder="Upload Form">
+
+              <center><input type="Submit" name="Submit" value="update"></center>  </pre>
+    </fieldset>
+    </fieldset>
+</form>
+
+</body>
+</html>

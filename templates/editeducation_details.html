@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <style>
+        body {
+            color: darkblue;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace, sans-serif; }
+
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body text="white" background="{% static '/aj.jpg'  %} ">
+<form method="post" action="/updateeducation/" enctype="multipart/form-data" >
+    {% csrf_token %}
+    <fieldset>
+        <legend style="padding: 20px;font-size: 30px;color: black">Education Details</legend>
+        <pre><fieldset>
+            <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">High School Name<span style="color: red">*</span></span>:  <input type="text"  name="High" placeholder="High School Name" required pattern="[a-zA-Z\s]+" title="Please Enter only Characters" value="{{qs.tenth_schoolname }}">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">High School Board<span style="color: red">*</span></span>:  <input type="text" name="Hboard" placeholder="Hi School Board" pattern="[a-zA-Z\s]+" required title="Please Enter only Characters" value="{{ qs.tenth_schoolboard }}" >    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">High School Percentage<span style="color: red">*</span></span>:  <input type="text" name="Spercentage" placeholder="High School Percentage" pattern="[0-9,.]+" title="Please enter two or three digit only Numeric" required value="{{ qs.tenth_percentage }}" >
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">10th certificate<span style="color: red">*</span></span>: <a href="http://127.0.0.1:8000{{ qs.tenth_cerificate.url }}"><img src="{{ qs.tenth_cerificate.url}}" width="80px" height="80px" ></a> <input type="file" name="high1" value=" {{ qs.tenth_cerificate.url}}" placeholder="Upload 10th Certificate">
+
+</fieldset><fieldset>
+            <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Inter College Name<span style="color: red">*</span></span>: <input type="text" name="Inter" placeholder="Inter College Name"  required pattern="[a-zA-Z\s]+" title="Please Enter only Characters" value="{{ qs.inter_collegename }}" >    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Inter Board<span style="color: red">*</span></span>: <input type="text"name="Board1" placeholder="Inter Board" required pattern="[a-zA-Z0-9\s]+"  title="Please Enter only Characters"value="{{ qs.inter_board }}" >    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Inter Percentage<span style="color: red">*</span></span>: <input type="text" name="Ipercentage" placeholder="Inter Percentage" required pattern="[0-9,.]+" title="Please enter two or three digit only Numeric" value="{{ qs.inter_percentage }}" >
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Inter certificate<span style="color: red">*</span></span>:<a href="http://127.0.0.1:8000{{ qs.inter_cerificate.url }}"><img src="{{ qs.inter_cerificate.url }}" width="80px" height="80px" ></a> <input type="file"  name="inter1" value=" {{ qs.inter_cerificate.url}}" placeholder="Upload Inter Certificate" >
+</fieldset><fieldset>
+
+            <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Graduation College Name<span style="color: red">*</span></span>: <input type="text" required name="Graduation" placeholder="Graduation College Name" pattern="[a-zA-Z\s0-9]+" title="Please Enter only Characters" value="{{ qs.graduation_collegename }}" >    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Graduation Board<span style="color: red">*</span></span>: <input type="text" name="Gboard" placeholder="Graduation Board"  pattern="[a-zA-Z\s0-9]+" required title="Please Enter only Characters" value="{{ qs.graduation_board}}" >    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Graduation Percentage<span style="color: red">*</span></span>: <input type="text" name="Gpercentage" placeholder="Graduation Percentage "  required pattern="[0-9,.]+" title="Please enter two or three digit only Numeric" value="{{ qs.graduation_percentage }}" >
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px"> Graduation Certificate<span style="color: red">*</span></span>:<a href="http://127.0.0.1:8000{{ qs.graduation_cerificate.url }}"><img src="{{ qs.graduation_cerificate.url }}" width="80px" height="80px" ></a> <input type="file" name="Graduation1"  value=" {{ qs.graduation_cerificate.url}}" placeholder="Upload Graduation Certificate" >
+
+</fieldset><fieldset>
+            <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Post Graduation College Name</span>: <input type="text" name="PGraduation" placeholder="Graduation College Name" pattern="[a-zA-Z\s]+" title="Please Enter only Characters" value="{{ qs.postgraduation_collegename}}" >   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px"> Post Graduation Board</span>: <input type="text" name="PGboard" placeholder="Graduation Board" pattern="[a-zA-Z\s]+" title="Please Enter only Characters" value="{{ qs.postgraduation_board }}" >   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Post Graduation Percentage</span>: <input type="text" name="P" placeholder="Graduation Percentage " value="{{ qs.postgraduation_percentage }}" pattern="[0-9,.]+" title="Please enter two or three digit only Numeric"  >
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Post Graduation Certificate</span>: {%   if qs.is_pg_cerificate %}<a href="http://127.0.0.1:8000{{ qs.postgraduation_cerificate.url }}"> <img src="{{ qs.postgraduation_cerificate.url }}" name="PGcert"  width="80px" height="80px" ></a>{% endif %}<input type="file" name="PGraduation1" placeholder="Upload PG Gration Certificate" >
+</fieldset>
+    </fieldset>
+    <center><button type="submit">update</button></center>
+
+</form>
+</body>
+</html>

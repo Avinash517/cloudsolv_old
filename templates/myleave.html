@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends 'dashboard.html' %}
+    <meta charset="UTF-8">
+    <title>Employee Records</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        body {
+
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            width: 100%;
+            font-family: 'Numans', sans-serif; }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+{% block 'content' %}
+    <center>
+        <h1 style="color:blue;">My Leaves...</h1>
+        <table border="1"  style="width: 60%;color: #4CAF50;border-collapse: collapse;width: 50%">
+            <tr>
+
+
+
+                <th style="color: black;text-align: center;">From Date</th>
+                <th style="color: black;text-align: center;">To Date</th>
+                <th style="color: black;text-align: center;">No of days</th>
+                <th style="color: black ;text-align: center;">Reason</th>
+                <th style="color: black;text-align: center;">Status</th>
+
+
+
+    </center>
+    {% for employee in employees %}
+        <tr>
+
+
+
+            <td style="color: royalblue; text-align: center">{{ employee.from_date }}</td>
+            <td style="color: royalblue; text-align: center">{{ employee.to_date}}</td>
+            <td style="color: royalblue;text-align: center">{{ employee.no_of_days}}</td>
+            <td style="color: royalblue;text-align: center">{{ employee.reason }}</td>
+            <td style="color: royalblue;text-align: center">{{employee.status}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    <br>
+    <br>
+{% endblock %}
+
+</body>
+</html>

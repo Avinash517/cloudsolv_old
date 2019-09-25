@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends 'dashboard.html' %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block 'content' %}
+    {% block 'month' %}
+        <center>
+        <br><br><br>
+        <center style="width: 50%"><form method="post" action="/monthlyattendence/">
+    {% csrf_token %}
+            Select the Month:<br><br>
+    <input type="month" name="month"style="size: 30px" required>
+    <input type="submit" value="Get My atendence" required>
+        </form></center>
+        {% endblock %}
+    {% block 'attendence' %}
+
+        {% endblock %}
+{% endblock %}
+</center>
+
+</body>
+</html>

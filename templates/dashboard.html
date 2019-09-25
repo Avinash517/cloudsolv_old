@@ -1,0 +1,411 @@
+<html lang="en">
+<head>
+    {% load static %}
+    {% block  'header' %}
+  <title>Cloudsolv</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link rel="shortcut icon" href="{% static '/cloudsolv_logo.png' %}" />
+  <style>
+       body {
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif; }
+
+
+    </style>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      height: 90%;
+    }
+
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;}
+    }
+  </style>
+</head>
+{% endblock %}
+<body  >
+ {% if messages %}
+     {% for msg in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong style="color: red">{{ msg.message }}</strong>.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+     {% endfor %}
+    {% endif %}
+{% block 'sidebar' %}
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2><img src="{% static '/cloudsolv_logo.png' %}" width="190px" height="60px" ; alt="Cloudsolv"></h2>
+      <ul class="nav nav-pills nav-stacked">
+      <br>
+      <li><a href="/dashboard/">My Page</a></li>
+        <li><div class="dropdown" style="background-color: transparent">
+  <button class="dropbtn ">My Profile</button>
+  <div class="dropdown-content">
+    <a href="/personaldetails/"> Personal Details</a>
+    <a href="/education/" >Education Details</a>
+    <a href="/experience/" >Exprience Details</a>
+      <a href="/changepsw/">Change Password  </a>
+
+  </div>
+</div>
+</li>
+              <li><div class="dropdown">
+  <button class="dropbtn">Salary Details</button>
+  <div class="dropdown-content">
+      <a href="/payslips/">View my Pay Slip</a>
+       <li><div class="dropdown">
+  <button class="dropbtn">Attandance System</button>
+        <div class="dropdown-content">
+        <a href="/monthlyattendence/">view my attendance</a>
+        <a href="/request/">request leave</a>
+            <a href="/viewmyleaves/">view my leaves</a>
+  </div>
+</div>
+</li>
+        <li><a href="/weeklyactivity/">My Activity</a></li>
+        <li><a href="/logout/">Logout</a></li>
+      </ul>
+      </ul><br>
+          {% endblock %}
+    </div>
+{% block 'content' %}
+    <div class="col-sm-9">
+      <div class="well">
+      <!--
+{#      <span style="align-items: start" ><img  style="alignment:right" src="{{ session.image }}" width="200px" height="250px"></span>#}
+      -->
+{#       <span><img src="{% static 'default_user_profile.jpg' %}" width="200px" height="250px"></span>#}
+      </div>
+      <div class="well" style="height: 9cm">
+          <p style="float: right"><a style="color: #4CAF50"></a></button><br><canvas id="canvas" width="170" height="170"
+style="background-color:#333"></canvas></p>
+        <!---<div class="col-sm-3">
+          <div class="well">
+            <h4><p style="color: rebeccapurple"></p></h4>
+
+          </div>
+        </div>--->
+        <div class="col-sm-4">
+          <div class="well">
+            <h4 id="para1" style="font-size: 30px"></h4>
+          </div>
+        </div>
+{% endblock %}
+<!DOCTYPE html>
+<html>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* Add a background color when the inputs get focus */
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: transparent;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: #474e5d;
+  padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
+.dropbtn {
+  background-color: transparent;
+  color: royalblue;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: block;}
+</style>
+<body>
+
+
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+  <form class="modal-content" method="post" action="/addchild/">
+      {% csrf_token %}
+    <div class="container">
+      <h1>Add children</h1>
+      <p>Please provide your children details.</p>
+      <hr>
+      <label for="email"><b>Name</b></label>
+      <input type="text" placeholder="Enter Email" name="name" required>
+
+      <label for="psw"><b>Gender</b></label>
+      <input type="password" placeholder="Enter DOB" name="Gender" required>
+
+      <label for="psw-repeat"><b>DOB</b></label>
+      <input type="password" placeholder="Repeat Password" name="DOB" required>
+
+        <label for="psw-repeat"><b>Height</b></label>
+      <input type="password" placeholder="Repeat Password" name="DOB" required>
+
+        <label for="psw-repeat"><b>Weight</b></label>
+      <input type="password" placeholder="Repeat Password" name="DOB" required>
+
+      <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="submit" class="signupbtn">Sign Up</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+    $('.alert').alert()
+            // Function to check Whether both passwords
+            // is same or not.
+            function checkPassword(form) {
+                password1 = form.pass1.value;
+                password2 = form.pass2.value;
+
+                // If password not entered
+                if (password1 == '')
+                    alert ("Please enter Password");
+
+                // If confirm password not entered
+                else if (password2 == '')
+                    alert ("Please enter confirm password");
+
+                // If Not same return False.
+                else if (password1 != password2) {
+                    alert ("\nPassword did not match: Please try again...")
+                    return false;
+                }
+
+                // If same return True.
+            }
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var radius = canvas.height / 2;
+ctx.translate(radius, radius);
+radius = radius * 0.90
+setInterval(drawClock, 1000);
+
+function drawClock() {
+  drawFace(ctx, radius);
+  drawNumbers(ctx, radius);
+  drawTime(ctx, radius);
+}
+
+function drawFace(ctx, radius) {
+  var grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, 2*Math.PI);
+  ctx.fillStyle = 'white';
+  ctx.fill();
+  grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
+  grad.addColorStop(0, '#333');
+  grad.addColorStop(0.5, 'white');
+  grad.addColorStop(1, '#333');
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = radius*0.1;
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
+  ctx.fillStyle = '#333';
+  ctx.fill();
+}
+
+function drawNumbers(ctx, radius) {
+  var ang;
+  var num;
+  ctx.font = radius*0.15 + "px arial";
+  ctx.textBaseline="middle";
+  ctx.textAlign="center";
+  for(num = 1; num < 13; num++){
+    ang = num * Math.PI / 6;
+    ctx.rotate(ang);
+    ctx.translate(0, -radius*0.85);
+    ctx.rotate(-ang);
+    ctx.fillText(num.toString(), 0, 0);
+    ctx.rotate(ang);
+    ctx.translate(0, radius*0.85);
+    ctx.rotate(-ang);
+  }
+}
+
+function drawTime(ctx, radius){
+    var now = new Date();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var second = now.getSeconds();
+    //hour
+    hour=hour%12;
+    hour=(hour*Math.PI/6)+
+    (minute*Math.PI/(6*60))+
+    (second*Math.PI/(360*60));
+    drawHand(ctx, hour, radius*0.5, radius*0.07);
+    //minute
+    minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
+    drawHand(ctx, minute, radius*0.8, radius*0.07);
+    // second
+    second=(second*Math.PI/30);
+    drawHand(ctx, second, radius*0.9, radius*0.02);
+}
+
+function drawHand(ctx, pos, length, width) {
+    ctx.beginPath();
+    ctx.lineWidth = width;
+    ctx.lineCap = "round";
+    ctx.moveTo(0,0);
+    ctx.rotate(pos);
+    ctx.lineTo(0, -length);
+    ctx.stroke();
+    ctx.rotate(-pos);
+}
+</script>
+<script type="text/javascript">
+document.getElementById("para1").innerHTML = formatAMPM();
+
+function formatAMPM() {
+var d = new Date(),
+    minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+    hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+    ampm = d.getHours() >= 12 ? 'pm' : 'am',
+    months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+return months[d.getMonth()]+' '+d.getDate()+' '+d.getFullYear()+' ';
+}
+</script>
+
+</body>
+</html>
+
+</body>
+</html>

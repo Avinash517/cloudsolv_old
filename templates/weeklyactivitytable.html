@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+        }
+
+        body {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+{% block content %}
+<h2>WEEKLY ACTIVITY</h2>
+    <table style="alignment: center;">
+        <tr>
+            <th>day</th>
+            <th>Task</th>
+            <th>goal</th>
+        </tr>
+    {% for i in table%}
+<form method="post">
+{% csrf_token %}
+        <tr>
+
+            <form method="post">
+                {% csrf_token %}
+                <td><input type="text" name="day" value="{{ i.week }}"></td>
+                <td><input type="text" value="{{ i.activity }}" name='text' style="width:300px; height:100px;"></input></td>
+                <td><select name="goal">
+                        <option value="{{ i.goal }}">{{ i.goal }}</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select></td>
+                <td><input type="submit" value="submit"> </td><br>
+            </form>
+        {% endfor %}
+        </tr>
+      <!--  <tr>
+            <form method="post">
+                {% csrf_token %}
+                <td>2</td>
+                <td>Tuesday</td>
+                <td><input type="month" name="bdaymonth2"></td>
+                <td><input type=text name="function2"></td>
+                <td><textarea name="message2" style="width:300px; height:100px;"></textarea></td>
+                <td><select name="goal2">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select></td>
+                <td><input type="submit" value="submit"> </td>
+            </form>
+        </tr>
+        <tr>
+            <form method="post">
+                {% csrf_token %}
+                <td>3</td>
+                <td>Wednesday</td>
+                <td><input type="month" name="bdaymonth3"></td>
+                <td><input type=text name="function3"></td>
+                <td><textarea name="message3" style="width:300px; height:100px;"></textarea></td>
+                <td><select name="goal3">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select></td>
+                <td><input type="submit" value="submit"> </td>
+            </form>
+        </tr>
+        <tr>
+            <form method="post">
+                {% csrf_token %}
+                <td>4</td>
+                <td>Thursday</td>
+                <td><input type="month" name="bdaymonth4"></td>
+                <td><input type=text name="function4"></td>
+                <td><textarea name="message4" style="width:300px; height:100px;"></textarea></td>
+                <td><select name="goal4">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select></td>
+                <td><input type="submit" value="submit"> </td>
+            </form>
+        </tr>
+        <tr>
+            <form method="post">
+                {% csrf_token %}
+                <td>5</td>
+                <td>Friday</td>
+                <td><input type="month" name="bdaymonth5"></td>
+                <td><input type=text name="function5"></td>
+                <td><textarea name="message5" style="width:300px; height:100px;"></textarea></td>
+                <td><select name="goal5">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select></td>
+                <td><input type="submit" value="submit"></td>
+            </form>
+        </tr>
+        <br>-->
+    </table>
+
+</form>
+{% endblock %}
+</body>
+</html>

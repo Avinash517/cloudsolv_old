@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<!--background="{% static '/aj.jpg' %}"-->
+<body text="white" >
+<form method="post"  enctype="multipart/form-data" action="/personaldetails/" >
+ {% csrf_token %}
+ <fieldset style="color: darkblue">
+      {% if messages %}
+     {% for msg in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong style="color: red">{{ msg.message }}</strong>.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: transparent">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+     {% endfor %}
+ {% endif %}
+    <legend style="padding: 20px;font-size: 30px;color: black">Personal Details</legend>
+    <fieldset style="color: #993300"><!--official details starts here-->
+        <legend style="padding: 20px;font-size: 30px;color: black">Official Details</legend><pre>
+                                                                                                                                          <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">upload photo<span style="color: red">*</span></span>: <input type="file" name="qs" value="{{ qs.employee_image.url}}" required >
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Employee ID: <input type="text" name="f_id" placeholder="Please Enter your ID" value="{{ emp.employee_id }}" onclick="myFunction()">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Employee name: <input type="text" name="f_name" placeholder="Please enter u r name" value="{{ emp.employee_name }}"  readonly onclick="myFunction()">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Designation<span style="color: red">*</span></span>: <input type="text" name="e_desig" placeholder="Please Enter Your Designation" value="{{ qs.designation }}"pattern="[a-zA-Z\s]+" title="Please Enter only Characters" required>
+
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Date of Joining<span style="color: red">*</span></span>: <input type="date" name="j_date" placeholder="Please Enter Your Date of Joining Properly" size="17" value="{{ qs.joining_date|date:'Y-m-d' }}" pattern="/d{4}-/d{2}-/d{2}" title="please enter date as yyyy-mm-dd" required>    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Date of Birth<span style="color: red">*</span></span>: <input type="date" name="f_dob" placeholder="Please Enter Your DOB Properly" value="{{ qs.employee_dob|date:'Y-m-d' }}" required></pre>
+    </fieldset>
+                    <!--official details ends here-->
+            <fieldset style="color: #993300"><!--personal information starts here-->
+    <legend style="padding: 20px;font-size: 30px;color: black">Personal Information</legend><pre>
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Father Name</span>: <input type="text" name="fa_name" placeholder="Please Enter Your Father Name" value="{{ qs.father_name }}" pattern="[A-Za-z\s]+" title="Please Enter only Characters">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Employee Gender<span style="color: red">*</span></span>: <select name="gender" value="{{ qs.gender }}" required><option value="Male">Male</option><option value="Female">Female</option><option value="others">Others</option></select>    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px"> Marital Status<span style="color: red">*</span></span>: <select name="Mstatus" value="{{ qs.maritial_status }}" required><option value="single">Single</option><option value="Married">Married</option></select>    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Spouse name</span>: <input type="text" name="sp_name" placeholder="Please Enter Your Spouse Name" value="{{ qs.spouse_name }}" pattern="[A-Za-z\s]+" title="Please Enter only Characters">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">No of Children</span>: <input type="text" name="no_children" placeholder="Please Enter No of Children" value="{{ qs.children }}" pattern="[0-9]{1,2}" title="Please Enter Proper Count ">
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Address Line1<span style="color: red">*</span></span>: <input type="text" name="address1" placeholder="Please Enter Your Adress"  value="{{qs.Address1}}"  pattern="[A-Za-z0-9,]+[A-za-z0-9]+{1,50}" title=" Please Enter proper Address" required>    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Address Line2</span>:  <input type="text" name="address2" placeholder="Please Enter Your Adress" value="{{qs.Address2}}"   pattern="[A-Za-z0-9,]+[A-za-z0-9]+{1,50}" title=" Please Enter Proper Address">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px"> City<span style="color: red">*</span></span>: <input type="text" name="city" placeholder="Please Enter Your City" value="{{ qs.city }}"pattern="[A-Za-z\s]+" title="Please Enter only Characters" required>    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px"> State<span style="color: red">*</span></span>: <input type="text" name="state" placeholder="Please Enter Your State" value="{{ qs.state }}"pattern="[A-Za-z\s]+" title="Please Enter only Characters" required>    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Postal Code<span style="color: red">*</span></span>: <input type="text" name="Code" placeholder="Please Enter Your Postal Code" value="{{ qs.postal_code }}"pattern="[0-9]{6}" title="Please Enter only 6 Digit Number " required>
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Telephone</span>: <input type="text" name="telephone" placeholder="Please Enter Your Telephone" value="{{ qs.telephone }}"pattern="[0-9]{11}" title="Please Enter 11 Digit Telephone Number ">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px"> Mobile<span style="color: red">*</span></span>: <input type="text" name="Mobile" placeholder="Please Enter Your Mobile No" value="{{ qs.mobile_number}}" pattern="[0-9]{10}" title="Please Enter 10 Digit Mobile Numbers " required></pre>
+
+            </fieldset>
+<!--personal information ends here-->
+            <fieldset style="color: #993300"><!--emergency contact information starts here-->
+    <legend style="padding: 20px;font-size: 30px;color:black;">Emergency contact Information</legend>
+                <pre>
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Relative Name<span style="color: red">*</span></span>: <input type="text" name="r_name" placeholder="Please Enter Your Relative Name" value="{{ qs.relatives_name }}"pattern="[A-Za-z\s]+" title="Please Enter only Characters" required>    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Relationship</span>: <input type="text" name="relation" placeholder="Please Enter The Relationship" value="{{ qs.relation }}"pattern="[A-Za-z\s]+" title="Please Enter only Characters">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Relative_Address</span>: <input type="text" name="raddress" placeholder="Please Enter Your Address" value="{{ qs.relative_address }}"pattern="[A-Za-z0-9,]+[A-za-z0-9]+{1,50}" title=" Please Enter proper Address">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">TelePhone Number</span>: <input type="text" name="p_no" placeholder="Please Enter TelePhone No" value="{{ qs.phone_number }}"pattern="[0-9]{11}" title="Please Enter 11 Digit Telephone Numbers ">
+
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Mobile Number<span style="color: red">*</span></span>: <input type="text" name="m_no" placeholder="Please Enter The Mobile No" value="{{ qs.mobile_number }}"pattern="[0-9]{10}" title="Please Enter 10 Digit Mobile Number " required>
+                </pre>
+            </fieldset>
+
+<!--emergency contact information ends here-->
+
+      <fieldset style="color: #993300"><!--Personal Documentation starts here-->
+    <legend style="padding: 20px;font-size: 30px;color:black;;">Personal Documentation</legend>
+          <pre>
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Pan No<span style="color: red">*</span></span>: <input type="text" name="Pan" placeholder="Pan No"  value="{{qs.pan_number}}" pattern="[A-Z]+[0-9]+" title="Enter 10 characters which contains Upper case letters and Digits" required>   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Pan Card<span style="color: red">*</span></span>: <input type="file" name='qs1' value="{{ qs.upload_pancard.url}}" required ><span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Aadhar No<span style="color: red">*</span></span>: <input type="text" name="aadhar" placeholder="Aadhar No" value="{{qs.aadhar_number}}" pattern="[0-9]{12}" title="Please Enter only 12 Digit Numeric " required>   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Aadhar Card<span style="color: red">*</span></span>:<input type="file" name="qs4"  value="{{qs.upload_aadhar.url}}" placeholder="Upload Aadhar Card" required>
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Passport No</span>: <input type="text" name="Passport" placeholder="Passport No" value="{{qs.passport_number}}" pattern="[A-Z0-9]{10}" title=" Please Enter 10 Digit which contains Upper case letters and Digits"> <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Passport</span>: <input type="file" name="qs2" value="{{qs.upload_passport.url}}" placeholder="Upload Passport "><span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Driving License No</span>: <input type="text" name="driving" value="{{qs.drivinglicense_number}}"  pattern="[A-Z0-9]{10}" title="Enter Proper 10 Number which contains Upper case letters and Digits"  placeholder="License NO"> <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Driving Licence</span>: <input type="file" name="qs3" value="{{ qs.upload_drivinglicense.url}}" placeholder="Upload Driving License"><span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Voter ID</span>: <input type="text" name="voter" placeholder="Please Enter Voter Id No" value="{{qs.voter_id_number}}" pattern="[A-Z0-9]{10}" title=" Please Enter 10 Proper Digit which contains Upper case letters and Digits"><span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Voter ID</span>: <input type="file" name="qs5" value=" {{ qs.upload_voterid.url}}" placeholder="Upload Voter ID">
+          </pre>
+
+
+    <!--Personal Documentation ends here-->
+
+
+  </fieldset>
+           </pre>
+        <center><input type="Submit" name="Submit" value="save"></center><br><br>
+      </fieldset>
+</form>
+</body>
+<script>
+    $('.alert').alert()
+function myFunction() {
+  alert("You can't Edit this");
+}
+</script>
+</html>

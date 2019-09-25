@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body text="white" >
+<form method="post"  enctype="multipart/form-data" action="/updatepersonal/" name="myform" onsubmit="validateform()">
+  {% csrf_token %}
+  <fieldset style="color: darkblue">
+    <legend style="padding: 20px;font-size: 30px;color: black">Personal Details</legend>
+    <fieldset style="color: #993300"><!--official details starts here-->
+        <legend style="padding: 20px;font-size: 30px;color: black">Official Details</legend><pre>
+            <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">upload photo<span style="color: red">*</span></span>:<div id="dvPreview"><a href="http://127.0.0.1:8000{{ qs.employee_image.url }}"><img src="{{ qs.employee_image.url}}" width="100px"></a></div><input type="file"  id="fileupload" name="qs" value="{{ qs.employee_image.url}}"  accept="image/*">
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Employee ID<span style="color: red">*</span></span>: <input type="text" name="f_id" placeholder="Please Enter your ID" value="{{ qs.employee.employee_id }}" pattern="[0-9]{1,13}" title="please enter id only" readonly onclick="myFunction()">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Employee name<span style="color: red">*</span></span>: <input type="text" name="f_name" placeholder="Please enter u r name" value="{{ qs.employee.employee_name }}" pattern="[0-9]{1,13}" title="please enter id only" readonly onclick="myFunction()">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Designation<span style="color: red">*</span></span>: <input type="text" name="e_desig" placeholder="Please Enter Your Designation" value="{{ qs.designation }}"pattern="[a-zA-Z][a-zA-Z0-9\s]*" title="Please Enter only Characters" required>
+
+
+
+            <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Date of Joining<span style="color: red">*</span></span>: <input type="date" name="j_date" placeholder="Please Enter Your Date of Joining Properly" size="17" value="{{ qs.joining_date|date:'Y-m-d' }}" pattern="/d{4}-/d{2}-/d{2}" title="please enter date as yyyy-mm-dd" required>    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Date of Birth<span style="color: red">*</span></span>: <input type="date" name="f_dob" placeholder="Please Enter Your DOB Properly" value="{{ qs.empoyee_dob|date:'Y-m-d' }}" required></pre>
+    </fieldset>
+                    <!--official details ends here-->
+            <fieldset style="color: #993300"><!--personal information starts here-->
+    <legend style="padding: 20px;font-size: 30px;color: black">Personal Information</legend><pre>
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Father Name</span>: <input type="text" name="fa_name" placeholder="Please Enter Your Father Name" value="{{ qs.father_name }}" pattern="[A-Za-z\s]+" title="Please Enter only Characters">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Employee Gender<span style="color: red">*</span></span>: <select name="gender" value="{{ qs.gender }}"><option value="{{ qs.gender }}">{{ qs.gender }}</option><option value="Male">Male</option><option value="Female">Female</option><option value="others">Others</option></select>    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px"> Marital Status<span style="color: red">*</span></span>: <select name="Mstatus" value="{{ qs.maritial_status }}"><option value="{{ qs.maritial_status }}">{{ qs.maritial_status }}</option><option value="single">Single</option><option value="Married">Married</option></select>    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Spouse name</span>: <input type="text" name="sp_name" placeholder="Please Enter Your Spouse Name" value="{{ qs.spouse_name }}" pattern="[A-Za-z\s]+" title="Please Enter only Characters">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">No of Children</span>: <input type="text" name="no_children" placeholder="Please Enter No of Children" value="{{ qs.children }}" pattern="[0-9]{1,2}" title=""Please remove None or Enter Proper Count ">
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Address Line1<span style="color: red">*</span></span>: <input type="text" name="address1" placeholder="Please Enter Your Adress"  value="{{qs.Address1}}"  pattern="[A-Za-z0-9,]+[A-za-z0-9]+{1,50}" title=" Please Enter proper Address">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Address Line2</span>:  <input type="text" name="address2" placeholder="Please Enter Your Adress" value="{{qs.Address2}}"   pattern="[A-Za-z0-9,]+[A-za-z0-9]+{1,50}" title=" Please Enter Proper Address">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px"> City<span style="color: red">*</span></span>: <input type="text" name="city" placeholder="Please Enter Your City" value="{{ qs.city }}"pattern="[A-Za-z\s]+" title="Please Enter only Characters">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px"> State<span style="color: red">*</span></span>: <input type="text" name="state" placeholder="Please Enter Your State" value="{{ qs.state }}"pattern="[A-Za-z\s]+" title="Please Enter only Characters">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Postal Code<span style="color: red">*</span></span>: <input type="text" name="Code" placeholder="Please Enter Your Postal Code" value="{{ qs.postal_code }}"pattern="[0-9]{6}" title="Please Enter only 6 Digit Number ">
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Telephone</span>:<input type="text" name="telephone" placeholder="Please Enter Your Telephone" value="{{ qs.telephone }}"pattern="[0-9]{11}" title="Please remove None or  Enter 11 Digit Telephone Number ">  <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px"> Mobile<span style="color: red">*</span></span>: <input type="text" name="Mobile" placeholder="Please Enter Your Mobile No" value="{{ qs.mobile_number}}" pattern="[0-9]{10}" title="Please Enter 10 Digit Mobile Numbers "></pre>
+
+<!--personal information ends here-->
+            <fieldset style="color: #993300"><!--emergency contact information starts here-->
+    <legend style="padding: 20px;font-size: 30px;color:black;">Emergency contact Information</legend>
+                <pre>
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Relative Name<span style="color: red">*</span></span>: <input type="text" name="r_name" placeholder="Please Enter Your Relative Name" value="{{ qs.relatives_name }}"pattern="[A-Za-z\s]+" title="Please Enter only Characters">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Relationship</span>: <input type="text" name="relation" placeholder="Please Enter The Relationship" value="{{ qs.relation }}"pattern="[A-Za-z\s]+" title="Please Enter only Characters">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Relative_Address</span>: <input type="text" name="raddress" placeholder="Please Enter Your Address" value="{{ qs.relative_address }}"pattern="[A-Za-z0-9,]+[A-za-z0-9]+{1,50}" title=" Please Enter proper Address">    <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">TelePhone Number</span>: <input type="text" name="p_no" placeholder="Please Enter TelePhone No" value="{{ qs.phone_number }}"pattern="[0-9]{11}" title="Please remove None or Enter 11 Digit Telephone Numbers ">
+
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Mobile Number<span style="color: red">*</span></span>: <input type="text" name="m_no" placeholder="Please Enter The Mobile No" value="{{ qs.mobile_number }}"pattern="[0-9]{10}" title="Please Enter 10 Digit Mobile Number ">
+
+<!--emergency contact information ends here-->
+
+      <fieldset style="color: #993300"><!--Personal Documentation starts here-->
+    <legend style="padding: 20px;font-size: 30px;color:black;;">Personal Documentation</legend>
+          <pre>
+              <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Pan No<span style="color: red">*</span></span>: <input type="text" name="Pan" placeholder="Pan No"  value="{{qs.pan_number}}" pattern="[A-Z0-9]{10}" title="Enter 10 characters which contains Upper case letters and Digits">   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Pan Card<span style="color: red">*</span></span>: <span style="width: 300px;height:120px;" id="dvPreview1"><a href="http://127.0.0.1:8000{{qs.upload_pancard.url }}"><img src="{{ qs.upload_pancard.url}}" width="100px"></a></span><input type="file"  id="fileupload1" name='qs1' value="{{ qs.upload_pancard.url}}"><span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Aadhar No<span style="color: red">*</span></span>: <input type="text" name="aadhar" placeholder="Aadhar No" value="{{qs.aadhar_number}}" pattern="[0-9]{12}" title="Please Enter only 12 Digit Numeric ">   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Aadhar Card<span style="color: red">*</span></span>:<span  id="dvPreview2"><a href="http://127.0.0.1:8000{{qs.upload_aadhar.url }}"><img src="{{ qs.upload_aadhar.url}}" width="100px"></a> </span><input type="file" name="qs4"  value="{{qs.upload_aadhar.url}}" placeholder="Upload Aadhar Card" id="fileupload2">
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Passport No</span>: <input type="text" name="Passport" placeholder="Passport No" value="{{qs.passport_number}}" pattern="[A-Z0-9]{10}" title=" Please Enter 10 Digit which contains Upper case letters and Digits"> <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px"> Upload Passport{% if qs.is_passport_uploaded %}</span>:<span id="dvPreview3"><a href="http://127.0.0.1:8000{{qs.upload_passport.url }}"><img src="{{ qs.upload_passport.url}}" width="100px"> </a>{% endif %}</span><input type="file" name="qs2" placeholder="Upload Passport " id="fileupload3"><span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px"></span>
+
+
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Driving License No</span>: <input type="text" name="driving" value="{{qs.drivinglicense_number}}"  pattern="[A-Z0-9]{10}" title="Enter Proper 10 Number which contains Upper case letters and Digits"  placeholder="License NO"> <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Driving Licence{% if qs.is_drivinglicense_uploaded %}</span>: <span id="dvPreview4"><a href="http://127.0.0.1:8000{{qs.upload_drivinglicense.url }}"><img src="{{ qs.upload_drivinglicense.url}}" width="100px"></a> </span>{% endif %}<input type="file" name="qs3"  placeholder="Upload Driving License" id="fileupload4"><span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Voter ID</span>: <input type="text" name="voter" placeholder="Please Enter Voter Id No" value="{{qs.voter_id_number}}" pattern="[A-Z0-9]{10}" title=" Please Enter 10 Proper Digit which contains Upper case letters and Digits"><span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Voter ID{% if qs.is_Voterid_uploaded %}</span>:<span id="dvPreview5"><a href="http://127.0.0.1:8000{{qs.upload_voterid.url }}"><img src="{{ qs.upload_voterid.url}}" width="100px"></a></span>{% endif %} <input type="file" name="qs5"  placeholder="Upload Voter ID" id="fileupload5">
+          </pre>
+
+
+    <!--Personal Documentation ends here-->
+
+
+  </fieldset>
+                </pre>
+          <center><input type="Submit" name="Submit" value="update"></center>
+            </fieldset>
+            </fieldset>
+</form>
+</body>
+</html>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+$(function () {
+    $("#fileupload").change(function () {
+        $("#dvPreview").html("");
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+        if (regex.test($(this).val().toLowerCase())) {
+            if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
+                $("#dvPreview").show();
+                $("#dvPreview")[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = $(this).val();
+            }
+            else {
+                if (typeof (FileReader) != "undefined") {
+                    $("#dvPreview").show();
+                    $("#dvPreview").append("<img />");
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#dvPreview img").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL($(this)[0].files[0]);
+                } else {
+                    alert("This browser does not support FileReader.");
+                }
+            }
+        } else {
+            alert("Please upload a valid image file .jpg|.jpeg|.gif|.png");
+        }
+    });
+});
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+$(function () {
+    $("#fileupload1").change(function () {
+        $("#dvPreview1").html("");
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+        if (regex.test($(this).val().toLowerCase())) {
+            if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
+                $("#dvPreview1").show();
+                $("#dvPreview1")[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = $(this).val();
+            }
+            else {
+                if (typeof (FileReader) != "undefined") {
+                    $("#dvPreview1").show();
+                    $("#dvPreview1").append("<img />");
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#dvPreview1 img").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL($(this)[0].files[0]);
+                } else {
+                    alert("This browser does not support FileReader.");
+                }
+            }
+        } else {
+            alert("Please upload a valid image file.");
+        }
+    });
+});
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+$(function () {
+    $("#fileupload2").change(function () {
+        $("#dvPreview2").html("");
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+        if (regex.test($(this).val().toLowerCase())) {
+            if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
+                $("#dvPreview2").show();
+                $("#dvPreview2")[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = $(this).val();
+            }
+            else {
+                if (typeof (FileReader) != "undefined") {
+                    $("#dvPreview2").show();
+                    $("#dvPreview2").append("<img />");
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#dvPreview2 img").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL($(this)[0].files[0]);
+                } else {
+                    alert("This browser does not support FileReader.");
+                }
+            }
+        } else {
+            alert("Please upload a valid image file.");
+        }
+    });
+});
+</script>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script language="javascript" type="text/javascript">
+    function myFunction() {
+  alert("You can't Edit this");
+}
+$(function () {
+    $("#fileupload3").change(function () {
+        $("#dvPreview3").html("");
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+        if (regex.test($(this).val().toLowerCase())) {
+            if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
+                $("#dvPreview3").show();
+                $("#dvPreview3")[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = $(this).val();
+            }
+            else {
+                if (typeof (FileReader) != "undefined") {
+                    $("#dvPreview3").show();
+                    $("#dvPreview3").append("<img />");
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#dvPreview3 img").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL($(this)[0].files[0]);
+                } else {
+                    alert("This browser does not support FileReader.");
+                }
+            }
+        } else {
+            alert("Please upload a valid image file.");
+        }
+    });
+});
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+$(function () {
+    $("#fileupload4").change(function () {
+        $("#dvPreview4").html("");
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+        if (regex.test($(this).val().toLowerCase())) {
+            if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
+                $("#dvPreview4").show();
+                $("#dvPreview4")[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = $(this).val();
+            }
+            else {
+                if (typeof (FileReader) != "undefined") {
+                    $("#dvPreview4").show();
+                    $("#dvPreview4").append("<img />");
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#dvPreview4 img").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL($(this)[0].files[0]);
+                } else {
+                    alert("This browser does not support FileReader.");
+                }
+            }
+        } else {
+            alert("Please upload a valid image file.");
+        }
+    });
+});
+</script>
+<script language="javascript" type="text/javascript">
+$(function () {
+    $("#fileupload5").change(function () {
+        $("#dvPreview5").html("");
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+        if (regex.test($(this).val().toLowerCase())) {
+            if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
+                $("#dvPreview5").show();
+                $("#dvPreview5")[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = $(this).val();
+            }
+            else {
+                if (typeof (FileReader) != "undefined") {
+                    $("#dvPreview5").show();
+                    $("#dvPreview5").append("<img />");
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#dvPreview5 img").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL($(this)[0].files[0]);
+                } else {
+                    alert("This browser does not support FileReader.");
+                }
+            }
+        } else {
+            alert("Please upload a valid image file.");
+        }
+    });
+});
+</script>
+<script>
+function validateform(){
+var name=document.myform.no_children.value;
+var password=document.myform.password.value;
+
+if (name==null || name==""){
+    document.myform.no_children.value=0
+  return false;
+}
+</script>

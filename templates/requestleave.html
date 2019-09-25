@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% extends 'dashboard.html' %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            font-family: 'Numans', sans-serif; }
+    </style>
+</head>
+<body text="white">
+
+{% block 'content' %}
+    <form method="post"  enctype="multipart/form-data" style="width: 100%;height:100%;">
+        {% csrf_token %}
+
+            <legend style="padding: 20px;font-size: 30px"><center>Request Leave</center></legend>
+<div>
+            <pre>
+    Leave Type:<select name="ltype">
+                <option value="sickleave">Sick Leave</option>
+                <option value="casualleave">Casual Leave</option>
+               </select><br>
+    From Date:  <input type="date" name="f_date"  data-date-format="YYYY-MM-DD" pattern="/d{4}-/d{2}-/d{2}" title="please enter date as DD-MM-YYYY" required>  To Date:  <input type="date" name="t_date"  data-date-format="YYYY-MM-DD" pattern="/d{4}-/d{2}-/d{2}" title="please enter date as DD-MM-YYYY" required>
+    Reason For Leave: <input type="text" name="r_leave" placeholder="Enter the Reason" pattern="[A-Za-z\s]+" title="Please enter only Character" required></pre>
+
+        <center><input type="Submit" name="Submit" value="Apply"></center>
+        <script>
+            function fun()
+            {
+                alert('Your Mail has been sent')
+            }
+        </script>
+    </form>
+{% endblock %}
+</body>
+</html>

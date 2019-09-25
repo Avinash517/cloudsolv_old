@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <style>
+        body {
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif; }
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body text="white"  >
+<form method="post"  enctype="multipart/form-data" >
+  {% csrf_token %}
+ <fieldset style="color: darkblue;">
+        <legend style="padding: 20px;font-size: 30px;color: black">Experience Information</legend>
+        <pre><fieldset>
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Name of the Organisation<span style="color: red">*</span>:</span>   <input type="text" name="orgo" placeholder="Please Enter The Organisation Name" value="{{ qs.name_of_organisation }}" required pattern="[a-zA-Z,.,\s]+" title="Please Enter only Characters" >   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Position Held<span style="color: red">*</span>:</span>   <input type="text" name="p_osition" placeholder="Position" value="{{ qs.job_role  }}" required pattern="[A-Za-z,\s]+" title="Enter Proper Name">   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Relative Experience<span style="color: red">*</span>:</span>   <input type="text" name="p_work" placeholder="enter work duration in company"  value="{{ qs.period_of_work }}"   required pattern="[0-9,.]{1,3}+[A-Za-z]+" title="Please Enter only Number ">   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Annual Package<span style="color: red">*</span>:</span>   <input type="text" name="salary" placeholder="Salary Package" value="{{ qs.package }}"  required pattern="[0-9,]{1,11}" title="Please Enter only Number ">
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Total Experience<span style="color: red">*</span>:</span>   <input type="text" name="Total" placeholder="Total Experience" value="{{qs.total_experience }}" required pattern="[0-9,.]{1,3}+[A-Za-z]+" title="Please Enter only Number and dot expression "> <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Relieving Letter<span style="color: red">*</span>:</span><span id="dvPreview"></span><input type="file" name="Reliving" value="{{ qs.relieving_letter.url }}" required placeholder="Upload Relieving Letter" id="fileupload"></span>
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Pay Slip<span style="color: red">*</span>:</span> </label> <input type="file"  value="{{ qs.pay_slip.url}}" name="Pay" required placeholder="Upload Pay Slip"><span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Form if any:  <input type="file" name="qs6" value=" {{ qs.url}}" placeholder="Upload Form">
+        </fieldset>
+            <fieldset>
+                <pre>
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Name of the Organisation:</span>   <input type="text" name="orgo1" placeholder="Please Enter The Organisation Name" value="{{ qs.name_of_organisation1 }}"  pattern="[a-zA-Z,.,\s]+" title="Please Enter only Characters" >   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Position Held:</span>   <input type="text" name="p_osition1" placeholder="Position" value="{{ qs.job_role1  }}"  pattern="[a-zA-Z,\s]+" title="Enter Proper Name">   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Relative Experience:</span>   <input type="text" name="p_work1" placeholder="Period of Work"  value="{{ qs.period_of_work1 }}"    pattern="[0-9,.]{1,3}+[A-Za-z]+" title="Please Enter only Number ">   <span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Annual Package:</span>   <input type="text" name="salary11" placeholder="Salary Package" value="{{ qs.package1 }}"   pattern="[0-9]{1,11}" title="Please Enter only Number ">
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Total Experience:</span>   <input type="text" name="Total1" placeholder="Total Experience" value="{{qs.total_experience1 }}"  pattern="[0-9,.]{1,3}+[A-Za-z]+" title="Please Enter only Number "><span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Relieving Letter:</span><input type="file" name="Reliving1" value="{{ qs.relieving_letter1.url }}"  placeholder="Upload Relieving Letter">
+
+
+<span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Pay Slip:</span> </label> <input type="file"  value="{{ qs.pay_slip1.url}}" name="Pay1" placeholder="Upload Pay Slip"><span style="font-family: 'Apple Braille';color: royalblue;font-size: 20px">Upload Form if any</span>:<input type="file" name="qss"  placeholder="Upload Form">
+                    <center><input type="Submit" name="Submit" value="Save"></center>
+</form>
+</body>
+</html>
+<script>
+$(function () {
+    $("#fileupload").change(function () {
+        $("#dvPreview").html("");
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+        if (regex.test($(this).val().toLowerCase())) {
+            if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
+                $("#dvPreview").show();
+                $("#dvPreview")[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = $(this).val();
+            }
+            else {
+                if (typeof (FileReader) != "undefined") {
+                    $("#dvPreview").show();
+                    $("#dvPreview").append("<img />");
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#dvPreview img").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL($(this)[0].files[0]);
+                } else {
+                    alert("This browser does not support FileReader.");
+                }
+            }
+        } else {
+            alert("Please upload a valid image file.");
+        }
+    });
+});
+</script>
